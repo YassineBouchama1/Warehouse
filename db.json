@@ -13,7 +13,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 55,
+          "quantity": 369,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -23,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 6,
+          "quantity": 999,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -133,20 +133,30 @@
       ]
     },
     {
-      "id": "d5da",
-      "name": "Hh",
-      "type": "Jj",
-      "barcode": "4058172310232",
-      "price": 66,
-      "supplier": "Hj",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
+      "id": "32e8",
+      "name": "Uuh",
+      "type": "Hfdhd",
+      "barcode": "4066447104011",
+      "price": 6626,
+      "supplier": "Bb",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/f91be289-1fd9-42c8-9736-4532378db4f6.jpeg",
       "stocks": [
         {
           "id": 2991,
           "name": "2991",
-          "quantity": 123,
+          "quantity": 96,
           "localisation": {
             "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        },
+        {
+          "id": 1999,
+          "name": "Warehouse 1999",
+          "quantity": 99999999,
+          "localisation": {
+            "city": "Oujda",
             "latitude": 0,
             "longitude": 0
           }
@@ -155,119 +165,7 @@
       "editedBy": [
         {
           "warehousemanId": "1444",
-          "at": "2025-02-14T17:34:11.501Z"
-        }
-      ],
-      "solde": 0
-    },
-    {
-      "id": "4552",
-      "name": "Hh",
-      "type": "Jj",
-      "barcode": "4058172310232",
-      "price": 66,
-      "supplier": "Hj",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
-      "stocks": [
-        {
-          "id": 2991,
-          "name": "2991",
-          "quantity": 123,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
-      "editedBy": [
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T17:34:15.602Z"
-        }
-      ],
-      "solde": 0
-    },
-    {
-      "id": "c8f1",
-      "name": "Hh",
-      "type": "Jj",
-      "barcode": "4058172310232",
-      "price": 66,
-      "supplier": "Hj",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
-      "stocks": [
-        {
-          "id": 2991,
-          "name": "2991",
-          "quantity": 123,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
-      "editedBy": [
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T17:34:14.678Z"
-        }
-      ],
-      "solde": 0
-    },
-    {
-      "id": "cd5b",
-      "name": "Hh",
-      "type": "Jj",
-      "barcode": "4058172310232",
-      "price": 66,
-      "supplier": "Hj",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
-      "stocks": [
-        {
-          "id": 2991,
-          "name": "2991",
-          "quantity": 123,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
-      "editedBy": [
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T17:34:16.740Z"
-        }
-      ],
-      "solde": 0
-    },
-    {
-      "id": "d79c",
-      "name": "Hh",
-      "type": "Jj",
-      "barcode": "4058172310232",
-      "price": 66,
-      "supplier": "Hj",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
-      "stocks": [
-        {
-          "id": 2991,
-          "name": "2991",
-          "quantity": 123,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
-      "editedBy": [
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T17:34:16.362Z"
+          "at": "2025-02-14T19:03:58.096Z"
         }
       ],
       "solde": 0
@@ -292,10 +190,12 @@
     }
   ],
   "statistics": {
-    "totalProducts": 3,
+    "totalProducts": 4,
     "outOfStock": 1,
-    "totalStockValue": 70,
-    "mostAddedProducts": [],
+    "totalStockValue": 136,
+    "mostAddedProducts": [
+      "Lastb"
+    ],
     "mostRemovedProducts": []
   }
 }

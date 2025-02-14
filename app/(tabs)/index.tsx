@@ -3,20 +3,11 @@ import { View, StyleSheet, ActivityIndicator, ScrollView, Dimensions } from 'rea
 import { Surface, Text, useTheme, List, Divider } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import GradientWrapper from '~/components/GradientWrapper';
+import { fetchStatistics } from '~/api/statisticsApi';
+import { Statistics } from '~/types';
 
-interface Statistics {
-  totalProducts: number;
-  outOfStock: number;
-  totalStockValue: number;
-  mostAddedProducts: Array<{
-    name: string;
-    quantity: number;
-    date: string;
-  }>;
-  mostRemovedProducts: string[];
-  lastAdded?: { name: string; timestamp: string };
-  lastUpdated?: { name: string; timestamp: string };
-}
+
 
 interface StatCardProps {
   title: string;
@@ -39,85 +30,23 @@ const StatCard = ({ title, value, icon, gradientColors }: StatCardProps) => (
   </Surface>
 );
 
-const ProductList = ({
-  title,
-  products,
-}: {
-  title: string;
-  products: Array<{ name: string; quantity: number; date: string }>;
-}) => (
-  <Surface style={styles.activityCard}>
-    <Text style={styles.activityTitle}>{title}</Text>
-    {products.length > 0 ? (
-      products.map((product, index) => (
-        <React.Fragment key={index}>
-          <List.Item
-            title={product.name}
-            description={`Added on ${product.date}`}
-            left={(props) => <List.Icon {...props} icon="package-variant" />}
-            right={() => (
-              <View style={styles.quantityContainer}>
-                <Text style={styles.quantityText}>+{product.quantity}</Text>
-              </View>
-            )}
-            style={styles.listItem}
-          />
-          {index < products.length - 1 && <Divider />}
-        </React.Fragment>
-      ))
-    ) : (
-      <Text style={styles.emptyText}>No products added yet</Text>
-    )}
-  </Surface>
-);
 
-const LastUpdateCard = ({
-  title,
-  data,
-}: {
-  title: string;
-  data?: { name: string; timestamp: string };
-}) => (
-  <Surface style={styles.lastUpdateCard}>
-    <Text style={styles.lastUpdateTitle}>{title}</Text>
-    {data ? (
-      <>
-        <Text style={styles.lastUpdateProduct}>{data.name}</Text>
-        <Text style={styles.lastUpdateTime}>{data.timestamp}</Text>
-      </>
-    ) : (
-      <Text style={styles.emptyText}>No updates</Text>
-    )}
-  </Surface>
-);
+
+
 
 const StatisticsScreen = () => {
   const [data, setData] = useState<Statistics | null>(null);
   const [loading, setLoading] = useState(true);
   const theme = useTheme();
 
-  // Mock data with added products list
-  const mockData: Statistics = {
-    totalProducts: 3,
-    outOfStock: 1,
-    totalStockValue: 70,
-    mostAddedProducts: [
-      { name: 'Product XYZ', quantity: 5, date: '2025-02-14' },
-      { name: 'Product ABC', quantity: 3, date: '2025-02-13' },
-      { name: 'Product 123', quantity: 2, date: '2025-02-12' },
-    ],
-    mostRemovedProducts: [],
-    lastAdded: { name: 'Product XYZ', timestamp: '2 hours ago' },
-    lastUpdated: { name: 'Product ABC', timestamp: '30 minutes ago' },
-  };
-
   useEffect(() => {
-    // Simulating API call with mock data
     const fetchData = async () => {
       try {
-        setData(mockData);
+        const statis = await fetchStatistics()
+          setData(statis);
+        
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching statistics:', error);
       } finally {
         setLoading(false);
       }
@@ -142,46 +71,45 @@ const StatisticsScreen = () => {
       </View>
     );
   }
-
+console.log( data.mostAddedProducts)
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.pageTitle}>Statistics Overview</Text>
+    <GradientWrapper>
+      <ScrollView style={styles.container}>
+        <Text style={styles.pageTitle}>Statistics Overview</Text>
 
-      <View style={styles.statsGrid}>
-        <StatCard
-          title="Total Products"
-          value={data.totalProducts}
-          icon="package-variant"
-          gradientColors={['#4c669f', '#3b5998']}
-        />
-        <StatCard
-          title="Out of Stock"
-          value={data.outOfStock}
-          icon="alert-circle"
-          gradientColors={['#ff416c', '#ff4b2b']}
-        />
-        <StatCard
-          title="Stock Value"
-          value={`$${data.totalStockValue}`}
-          icon="currency-usd"
-          gradientColors={['#11998e', '#38ef7d']}
-        />
-      </View>
-
-      <View style={styles.lastUpdateContainer}>
-        <LastUpdateCard title="Last Added" data={data.lastAdded} />
-        <LastUpdateCard title="Last Updated" data={data.lastUpdated} />
-      </View>
-
-      <ProductList title="Most Added Products" products={data.mostAddedProducts} />
-    </ScrollView>
+        <View style={styles.statsGrid}>
+          <StatCard
+            title="Total Products"
+            value={data.totalProducts}
+            icon="package-variant"
+            gradientColors={['#4c669f', '#3b5998']}
+          />
+          <StatCard
+            title="Out of Stock"
+            value={data.outOfStock}
+            icon="alert-circle"
+            gradientColors={['#ff416c', '#ff4b2b']}
+          />
+          <StatCard
+            title="Stock Value"
+            value={`$${data.totalStockValue}`}
+            icon="currency-usd"
+            gradientColors={['#11998e', '#38ef7d']}
+          />
+        </View>
+       
+        
+       
+      </ScrollView>
+    </GradientWrapper>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'transparent',
     padding: 16,
   },
   loadingContainer: {
