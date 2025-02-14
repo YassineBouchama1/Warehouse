@@ -1,41 +1,41 @@
-import axios from "axios"
-import type { Product } from "../types"
+import axios from 'axios';
+import type { Product } from '../types';
 
-const API_URL = `${process.env.EXPO_PUBLIC_API}:3000`
-
+const API_URL = `${process.env.EXPO_PUBLIC_API}:3000`;
 
 export const fetchProducts = async (): Promise<Product[]> => {
-  const response = await axios.get<Product[]>(`${API_URL}/products`)
-  return response.data
-}
+  const response = await axios.get<Product[]>(`${API_URL}/products`);
+  return response.data;
+};
 
-export const fetchProductById = async (id: number|string): Promise<Product> => {
-  const response = await axios.get<Product>(`${API_URL}/products/${id}`)
-  return response.data
-}
+export const fetchProductById = async (id: number | string): Promise<Product> => {
+  const response = await axios.get<Product>(`${API_URL}/products/${id}`);
+  return response.data;
+};
 
-export const addProduct = async (product: Omit<Product, "id">): Promise<Product> => {
-  const response = await axios.post<Product>(`${API_URL}/products`, product)
-  return response.data
-}
+export const addProduct = async (product: Omit<Product, 'id'>): Promise<Product> => {
+  const response = await axios.post<Product>(`${API_URL}/products`, product);
+  return response.data;
+};
 
 export const updateProductStock = async (
-  productId:  number|string,
+  productId: number | string,
   warehouseId: number,
-  quantity: number,
+  quantity: number
 ): Promise<Product> => {
-  const product = await fetchProductById(productId)
+  const product = await fetchProductById(productId);
   const updatedStocks = product.stocks.map((stock) => {
     if (stock.id === warehouseId) {
-      return { ...stock, quantity }
+      return { ...stock, quantity };
     }
-    return stock
-  })
+    return stock;
+  });
 
-  const updatedProduct = { ...product, stocks: updatedStocks }
-  const response = await axios.put<Product>(`${API_URL}/products/${productId}`, updatedProduct)
-  return response.data
-}
+  const updatedProduct = { ...product, stocks: updatedStocks };
+  const response = await axios.put<Product>(`${API_URL}/products/${productId}`, updatedProduct);
+  return response.data;
+};
+
 
 export const removeProductQuantity = async (
   productId: number | string,
@@ -43,13 +43,17 @@ export const removeProductQuantity = async (
   quantityToRemove: number
 ): Promise<Product> => {
   const product = await fetchProductById(productId);
-  const updatedStocks = product.stocks.map((stock) => {
-    if (stock.id === warehouseId) {
-      const newQuantity = Math.max(0, stock.quantity - quantityToRemove);
-      return { ...stock, quantity: newQuantity };
-    }
-    return stock;
-  });
+
+  if (quantityToRemove === 0 ){
+    
+  }
+    const updatedStocks = product.stocks.map((stock) => {
+      if (stock.id === warehouseId) {
+        const newQuantity = Math.max(0, stock.quantity - quantityToRemove);
+        return { ...stock, quantity: newQuantity };
+      }
+      return stock;
+    });
 
   const updatedProduct = { ...product, stocks: updatedStocks };
   const response = await axios.put<Product>(`${API_URL}/products/${productId}`, updatedProduct);
@@ -96,5 +100,29 @@ export const addStockToProduct = async (
 
   const response = await axios.put<Product>(`${API_URL}/products/${productId}`, product);
   return response.data;
+};
+
+export const removeStockFromProduct = async (
+  productId: number | string,
+  warehouseId: number | string
+): Promise<void> => {
+  try {
+    const product = await fetchProductById(productId);
+
+    const updatedStocks = product.stocks.filter((stock) => stock.id !== warehouseId);
+
+    // Update the product with the new stocks array
+    const updatedProduct = { ...product, stocks: updatedStocks };
+
+    // Send the updated product to the server
+    const response = await axios.put<Product>(`${API_URL}/products/${productId}`, updatedProduct);
+
+    // Check if the update was successful
+    if (response.status !== 200) {
+      throw new Error('Failed to remove stock from product');
+    }
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
 };
 

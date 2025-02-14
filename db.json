@@ -12,22 +12,12 @@
       "stocks": [
         {
           "id": 1999,
-          "name": "Gueliz B2",
-          "quantity": 9,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 31.628674,
-            "longitude": -7.992047
-          }
-        },
-        {
-          "id": 2991,
-          "name": "Lazari H2",
-          "quantity": 999,
+          "name": "Warehouse 1999",
+          "quantity": 22,
           "localisation": {
             "city": "Oujda",
-            "latitude": 34.689404,
-            "longitude": -1.912823
+            "latitude": 0,
+            "longitude": 0
           }
         }
       ],
@@ -182,28 +172,7 @@
       "price": 38,
       "supplier": "Yhdhd",
       "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/be8bb80f-fe12-4070-9a73-7c60fc0e61ea.jpeg",
-      "stocks": [
-        {
-          "id": 2991,
-          "name": "2991",
-          "quantity": 69565,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 0,
-            "longitude": 0
-          }
-        },
-        {
-          "id": 1999,
-          "name": "Warehouse 1999",
-          "quantity": 96,
-          "localisation": {
-            "city": "Oujda",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
+      "stocks": [],
       "editedBy": [
         {
           "warehousemanId": "1444",

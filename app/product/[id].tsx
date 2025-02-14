@@ -10,12 +10,18 @@ import { EditorInfo } from '~/components/pruductDetails/EditorInfo';
 import { StockList } from '~/components/pruductDetails/StockList';
 import StockUpdateModal from '~/components/StockUpdateModal';
 import GradientWrapper from '~/components/GradientWrapper';
+import { Button } from '~/components/Button';
+import { AddStockModal } from '~/components/pruductDetails/AddStockModal';
+import { useState } from 'react';
+import { useAddWarehouseProduct } from '~/hooks/useAddWarehouseProduct';
+import { Text } from 'react-native';
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams();
   const { product, lastEditor, isLoading, isError, error, refetch } = useProductDetails(
     id as string
   );
+  
   const {
     showUpdateModal,
     setShowUpdateModal,
@@ -25,8 +31,14 @@ export default function ProductDetailsScreen() {
     handleStockRemove,
   } = useStockUpdate(id as string);
 
-  // Debugging: Log lastEditor value
-  console.log('Last Editor:', lastEditor);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const { addStockToWarehouse, isLoading: isLoadingAdd, error:errorWarhouse } = useAddWarehouseProduct(id);
+
+
+  const handleAddStock = (warehouseId: number, quantity: number) => {
+    addStockToWarehouse(warehouseId, quantity);
+  };
 
   if (isLoading) {
     return <LoadingView />;
@@ -62,6 +74,18 @@ export default function ProductDetailsScreen() {
                 setShowUpdateModal(true);
               }}
             />
+            <AddStockModal
+              visible={isModalVisible}
+              onClose={() => setIsModalVisible(false)}
+              productId={id}
+              onAddStock={handleAddStock}
+            />
+
+            {isLoadingAdd && <Text>Adding stock...</Text>}
+            {errorWarhouse && (
+              <Text style={{ color: 'red' }}>error: {errorWarhouse.message}</Text>
+            )}
+            <Button title="Add Stock to Warehouse" onPress={() => setIsModalVisible(true)} />
           </View>
         </ScrollView>
         <StockUpdateModal

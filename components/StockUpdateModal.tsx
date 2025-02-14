@@ -1,6 +1,7 @@
 
 import { useState } from "react"
-import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native"
+import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native"
+import { removeWarehouseProductStock } from "~/hooks/useRemoveWarehouseProductStock"
 
 interface StockUpdateModalProps {
   visible: boolean
@@ -32,6 +33,9 @@ export default function StockUpdateModal({
       onRemove(removeQuantity)
     }
   }
+
+
+ 
 
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>

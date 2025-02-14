@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateProductStock, removeProductQuantity } from '../api/productApi';
+import { updateProductStock, removeProductQuantity, removeStockFromProduct } from '../api/productApi';
 import type { Stock } from '../types';
 
 export function useStockUpdate(productId: string) {
@@ -20,7 +20,10 @@ export function useStockUpdate(productId: string) {
 
   const removeMutation = useMutation({
     mutationFn: ({ quantity }: { quantity: number }) =>
-      removeProductQuantity(productId, selectedWarehouse!.id, quantity),
+      
+      removeStockFromProduct(productId, selectedWarehouse!.id),
+      // removeProductQuantity(productId, selectedWarehouse!.id, quantity),
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product'] });
       setShowUpdateModal(false);
