@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { removeData, storeData } from '~/utils/storage';
+import { removeData, storeData, getData } from '~/utils/storage';
 
 export interface User {
   id: number;
@@ -12,17 +12,20 @@ export interface User {
 
 interface AuthState {
   user: User | null;
+  isLoading: boolean;
   login: (user: User) => void;
   logout: () => void;
   setUserFromStorage: (user: User | null) => void;
+  loadUser: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
+  isLoading: true, 
 
-  login: (user: User) => {
+  login: async (user: User) => {
     set({ user });
-   storeData('warehouseman', user);
+    await storeData('warehouseman', user);
   },
 
   logout: () => {
@@ -31,6 +34,12 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   setUserFromStorage: (user: User | null) => {
-    set({ user });
+    set({ user, isLoading: false }); 
+  },
+
+  loadUser: async () => {
+    const storedUser = await getData('warehouseman');
+    set({ user: storedUser || null, isLoading: false });
   },
 }));
+

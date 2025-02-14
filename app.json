@@ -16,6 +16,27 @@
         {
           "launchMode": "most-recent"
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      "expo-barcode-scanner",
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
       ]
     ],
     "experiments": {
@@ -30,9 +51,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -41,7 +60,18 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.siskoweb.warehouse"
+      "package": "com.siskoweb.warehouse",
+       "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_MEDIA_LOCATION",
+        "RECEIVE_BOOT_COMPLETED",
+        "FOREGROUND_SERVICE",
+        "POST_NOTIFICATIONS",
+        "SCHEDULE_EXACT_ALARM",
+        "USE_EXACT_ALARM"
+        
+      ]
     },
     "extra": {
       "router": {
