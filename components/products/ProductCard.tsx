@@ -39,19 +39,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <Text style={styles.productQuantity}>Quantity: {totalQuantity}</Text>
           </View>
         </View>
-        <View style={styles.cardActions}>
-          <Text style={styles.productQuantity}>Last Update : {product.editedBy[0].at}</Text>
-
-          {/* <TouchableOpacity style={styles.actionButton} onPress={onViewDetails}>
-            <Ionicons name="document-text-outline" size={24} color="#007AFF" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton} onPress={onEdit}>
-            <Ionicons name="create-outline" size={24} color="#4CAF50" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton} onPress={onDelete}>
-            <Ionicons name="trash-outline" size={24} color="#FF3B30" />
-          </TouchableOpacity> */}
-        </View>
+    
       </TouchableOpacity>
     </View>
   );

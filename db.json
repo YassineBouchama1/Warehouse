@@ -13,7 +13,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 369,
+          "quantity": 9,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -158,7 +158,7 @@
         {
           "id": 1999,
           "name": "Warehouse 1999",
-          "quantity": 99999999,
+          "quantity": 3333,
           "localisation": {
             "city": "Oujda",
             "latitude": 0,
@@ -196,7 +196,7 @@
         {
           "id": 1999,
           "name": "Warehouse 1999",
-          "quantity": 32,
+          "quantity": 96,
           "localisation": {
             "city": "Oujda",
             "latitude": 0,

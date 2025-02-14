@@ -10,3 +10,13 @@ export const fetchWarehouseman = async (secretKey: number | string): Promise<War
   return response.data[0] || null;
 };
 
+
+
+export const fetchWarehousemanById = async (
+  id: number | string
+): Promise<Warehouseman | null> => {
+  const response = await axios.get<Warehouseman[]>(
+    `${API_URL}/warehousemans?id=${id}`
+  );
+  return response.data[0] || null;
+};

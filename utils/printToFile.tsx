@@ -23,10 +23,9 @@ export default function App() {
   const [selectedPrinter, setSelectedPrinter] = useState();
 
   const print = async () => {
-    // On iOS/android prints the given html. On web prints the HTML from the current page.
      await Print.printAsync({
       html,
-      printerUrl: selectedPrinter?.url, // iOS only
+      printerUrl: selectedPrinter?.url, 
     }); 
   };
 
@@ -38,7 +37,7 @@ export default function App() {
   };
 
   const selectPrinter = async () => {
-     const printer = await Print.selectPrinterAsync(); // iOS only
+     const printer = await Print.selectPrinterAsync(); 
     setSelectedPrinter(printer);
   };
 

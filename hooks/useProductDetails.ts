@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchProductById } from '~/api/productApi';
-import { fetchWarehouseman } from '~/api/warehousemanApi';
+import { fetchWarehouseman, fetchWarehousemanById } from '~/api/warehousemanApi';
 import type { Product, Warehouseman } from '~/types';
 
 interface ProductDetailsError {
@@ -18,6 +18,10 @@ interface UseProductDetailsResult {
 }
 
 export const useProductDetails = (productId: string | null): UseProductDetailsResult => {
+  const queryClient = useQueryClient();
+
+
+  // fetc product details
   const {
     data: product,
     isLoading: isLoadingProduct,
@@ -40,10 +44,12 @@ export const useProductDetails = (productId: string | null): UseProductDetailsRe
       return product;
     },
     retry: 2,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
     enabled: !!productId,
   });
 
+
+  // here fetch last editor
   const {
     data: lastEditor,
     isLoading: isLoadingEditor,
@@ -57,15 +63,16 @@ export const useProductDetails = (productId: string | null): UseProductDetailsRe
       }
 
       const lastEdit = product.editedBy[product.editedBy.length - 1];
-      return await fetchWarehouseman(lastEdit.warehousemanId.toString());
+      const editor = await fetchWarehousemanById(lastEdit.warehousemanId.toString());
+   
+      return editor;
     },
     retry: 1,
     staleTime: 1000 * 60 * 30,
-    enabled: !!product?.editedBy?.length,
+    enabled: !!product,
   });
 
   const isLoading = isLoadingProduct || isLoadingEditor;
-
   const isError = isProductError || isEditorError;
   const error = (() => {
     if (isProductError) {
@@ -85,10 +92,12 @@ export const useProductDetails = (productId: string | null): UseProductDetailsRe
   })();
 
   const refetch = async () => {
-    await Promise.all([
-      refetchProduct(),
-      product?.editedBy?.length ? lastEditor : Promise.resolve(),
-    ]);
+    await refetchProduct();
+    if (product?.editedBy?.length) {
+      await queryClient.invalidateQueries({
+        queryKey: ['warehouseman', product.editedBy[product.editedBy.length - 1].warehousemanId],
+      });
+    }
   };
 
   return {

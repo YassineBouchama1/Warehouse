@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, FlatList, StyleSheet, Text, SafeAreaView } from 'react-native';
+import React, { Suspense } from 'react';
+import { View, FlatList, StyleSheet, Text, SafeAreaView, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ProductCard } from '../../components/products/ProductCard';
 import { useProducts } from '../../hooks/useProducts';
@@ -7,9 +7,11 @@ import GradientWrapper from '~/components/GradientWrapper';
 import { moderateScale } from 'react-native-size-matters';
 import ProductCardSkeleton from '~/components/skeletons/ProductCardSkeleton';
 import SearchBar from '~/components/products/SearchBar';
-import { useProductModalStore } from '~/store/useProductModalStore';
-import FilterModal from '~/components/products/FilterModal';
+import { Colors } from '~/constants/theme';
 
+
+
+const FilterModal = React.lazy(() => import('~/components/products/FilterModal'));
 const ProductsScreen: React.FC = () => {
   const router = useRouter();
   const { products, isLoading, isSearching, searchQuery, handleSearch } = useProducts();
@@ -67,7 +69,9 @@ const ProductsScreen: React.FC = () => {
         />
         {/* Render content (skeleton, no products, or product list) */}
         {renderContent()}
+              <Suspense fallback={<ActivityIndicator size="small" color={Colors.primary} />}>
         <FilterModal />
+              </Suspense>
       </SafeAreaView>
     </GradientWrapper>
   );

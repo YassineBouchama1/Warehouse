@@ -89,6 +89,7 @@ export const useProductForm = ({ initialBarcode, existingProduct }: UseProductFo
     },
     onSuccess: (updatedProduct) => {
       // invalid and refetch the product details
+      
       queryClient.invalidateQueries({ queryKey: ['products', 'product', updatedProduct.id] });
       // navi to the updated product page
       router.replace(`/product/${updatedProduct.id}`);

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   infoCard: {
     backgroundColor: '#FFFFFF',
     padding: 20,
-    borderRadius: 15,
+    // borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

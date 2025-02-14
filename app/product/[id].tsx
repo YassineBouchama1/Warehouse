@@ -25,6 +25,9 @@ export default function ProductDetailsScreen() {
     handleStockRemove,
   } = useStockUpdate(id as string);
 
+  // Debugging: Log lastEditor value
+  console.log('Last Editor:', lastEditor);
+
   if (isLoading) {
     return <LoadingView />;
   }
@@ -47,6 +50,7 @@ export default function ProductDetailsScreen() {
             />
             {lastEditor && (
               <EditorInfo
+                key={lastEditor.id}
                 editor={lastEditor}
                 editDate={product.editedBy[product.editedBy.length - 1].at}
               />
@@ -78,6 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   content: {
-    padding: 20,
+    // padding: 20,
   },
 });

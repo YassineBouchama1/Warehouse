@@ -8,6 +8,9 @@ type EditorInfoProps = {
 };
 
 export function EditorInfo({ editor, editDate }: EditorInfoProps) {
+ if (!editor) {
+   return null; 
+ }
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString();

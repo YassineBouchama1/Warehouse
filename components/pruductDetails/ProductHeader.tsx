@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'relative',
     height: 300,
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   headerContent: {
     position: 'absolute',
