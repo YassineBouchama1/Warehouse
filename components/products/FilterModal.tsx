@@ -1,16 +1,11 @@
-import React, { useCallback, useMemo, useRef, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  ActivityIndicator,
-  BackHandler,
-  Pressable,
-} from 'react-native';
+import React, { useCallback, useMemo, useRef, useEffect, useState } from 'react';
+import { View, StyleSheet, Text, ActivityIndicator, BackHandler, Pressable } from 'react-native';
 import { BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Picker } from '@react-native-picker/picker';
 import { Colors } from '~/constants/theme';
 import { useFilterModalStore } from '~/store/useFilterModalStore';
+import { moderateScale } from 'react-native-size-matters';
+import Feather from '@expo/vector-icons/Feather';
 
 const FilterModal: React.FC = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -28,6 +23,14 @@ const FilterModal: React.FC = () => {
   } = useFilterModalStore();
 
   const cities = useMemo(() => ['Marrakesh', 'Oujda', 'Casablanca'], []);
+
+  // Local state for filters
+  const [filterState, setFilterState] = useState({
+    city: city || '',
+    sortBy: sortBy || 'name',
+    orderBy: orderBy || 'asc',
+    inStockOnly: inStockOnly || false,
+  });
 
   // Handle hardware back button press
   useEffect(() => {
@@ -50,78 +53,95 @@ const FilterModal: React.FC = () => {
     }
   }, [isFilterModalOpen]);
 
+  // Handler for filter changes
+  const handleFilterChange = useCallback((key: string, value: any) => {
+    setFilterState((prev) => ({ ...prev, [key]: value }));
+  }, []);
+
   // Handlers for applying and resetting filters
   const handleApplyFilters = useCallback(() => {
     setFilters({
-      orderBy,
-      sortBy,
-      city,
-      inStockOnly,
+      city: filterState.city,
+      sortBy: filterState.sortBy,
+      orderBy: filterState.orderBy,
+      inStockOnly: filterState.inStockOnly,
     });
     closeFilterModal();
-  }, [orderBy, sortBy, city, inStockOnly, setFilters, closeFilterModal]);
+  }, [filterState, setFilters, closeFilterModal]);
 
   const handleResetFilters = useCallback(() => {
+    setFilterState({
+      city: '',
+      sortBy: 'name',
+      orderBy: 'asc',
+      inStockOnly: false,
+    });
     resetFilters();
   }, [resetFilters]);
 
+    const handleSheetChanges = useCallback(
+      (index: number) => {
+        if (index === -1) closeFilterModal();
+      },
+      [closeFilterModal]
+    );
   return (
     <BottomSheetModal
       ref={bottomSheetModalRef}
       snapPoints={snapPoints}
-      onChange={(index) => index === -1 && closeFilterModal()}
+      onChange={handleSheetChanges}
       enablePanDownToClose>
       <BottomSheetScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.container}>
           {/* City Filter */}
-          {/* <View style={styles.filterSection}>
+          <View style={styles.filterSection}>
             <Text style={styles.filterLabel}>City</Text>
             <Picker
-              selectedValue={city}
-              onValueChange={(value) => setFilters({ city: value })}
+              selectedValue={filterState.city}
+              onValueChange={(value) => handleFilterChange('city', value)}
               style={styles.picker}>
               <Picker.Item label="All Cities" value="" />
               {cities.map((cityName) => (
                 <Picker.Item key={cityName} label={cityName} value={cityName} />
               ))}
             </Picker>
-          </View> */}
+          </View>
 
           {/* In Stock Only Toggle */}
-          {/* <View style={styles.filterSection}>
+          <View style={styles.filterSection}>
             <Pressable
-              onPress={() => setFilters({ inStockOnly: !inStockOnly })}
+              onPress={() => handleFilterChange('inStockOnly', !filterState.inStockOnly)}
               style={styles.toggleButton}>
               <Text style={styles.toggleButtonText}>
-                {inStockOnly ? 'Show All Products' : 'Show In Stock Only'}
+                {filterState.inStockOnly ? 'Show All Products' : 'Show In Stock Only'}
               </Text>
             </Pressable>
-          </View> */}
+          </View>
 
           {/* Sorting Options */}
-          {/* <View style={styles.filterSection}>
+          <View style={styles.filterSection}>
             <Text style={styles.filterLabel}>Sort By</Text>
             <Picker
-              selectedValue={sortBy}
-              onValueChange={(value) => setFilters({ sortBy: value })}
+              selectedValue={filterState.sortBy}
+              onValueChange={(value) => handleFilterChange('sortBy', value)}
               style={styles.picker}>
               <Picker.Item label="Name" value="name" />
               <Picker.Item label="Quantity" value="quantity" />
               <Picker.Item label="Stock" value="stock" />
             </Picker>
-          </View> */}
+          </View>
 
           {/* Order By */}
-          {/* <View style={styles.filterSection}>
+          <View style={styles.filterSection}>
             <Text style={styles.filterLabel}>Order</Text>
             <Picker
-              selectedValue={orderBy}
-              onValueChange={(value) => setFilters({ orderBy: value })}
+              selectedValue={filterState.orderBy}
+              onValueChange={(value) => handleFilterChange('orderBy', value)}
               style={styles.picker}>
               <Picker.Item label="Ascending" value="asc" />
               <Picker.Item label="Descending" value="desc" />
             </Picker>
-          </View> */}
+          </View>
 
           {/* Action Buttons */}
           <View style={styles.buttonContainer}>
@@ -150,16 +170,18 @@ const styles = StyleSheet.create({
   filterSection: {
     marginBottom: 20,
   },
+  icon: {
+    flexDirection: 'row',
+  },
+  picker: {
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+  },
   filterLabel: {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 8,
     color: Colors.text,
-  },
-  picker: {
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
-    height: 50,
   },
   toggleButton: {
     backgroundColor: '#f5f5f5',

@@ -19,7 +19,7 @@ export default function LoginScreen() {
 
 const { isAuthenticated,login } = useAuth();
 
-  const memoizedStyles = useMemo(() => styles, []);
+const memoizedStyles = useMemo(() => styles, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -29,7 +29,7 @@ const { isAuthenticated,login } = useAuth();
     }, [isAuthenticated])
   );
 
-  console.log('iam in login')
+
   const handleLogin = async () => {
     setIsLoading(true);
     try {

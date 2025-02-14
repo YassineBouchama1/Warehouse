@@ -17,7 +17,7 @@ const ProductsScreen: React.FC = () => {
   // Handle product press navigation
   const handleProductPress = (productId: number) => {
     router.push(`/product/${productId.toString()}`);
-//    openModal(productId);
+//
 
   };
 
@@ -28,14 +28,14 @@ const ProductsScreen: React.FC = () => {
       return <ProductCardSkeleton />;
     }
 
-    // if (products.length === 0 && !isSearching && !isLoading) {
-    //   // Display no products message if the list is empty
-    //   return (
-    //     <View style={styles.loadingContainer}>
-    //       <Text>No Products found</Text>
-    //     </View>
-    //   );
-    // }
+    if (products.length === 0 && !isSearching && !isLoading) {
+      // Display no products message if the list is empty
+      return (
+        <View style={styles.loadingContainer}>
+          <Text>No Products found</Text>
+        </View>
+      );
+    }
 
 
     // Render the list of products
