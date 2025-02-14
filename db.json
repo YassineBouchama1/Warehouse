@@ -19,6 +19,16 @@
             "latitude": 0,
             "longitude": 0
           }
+        },
+        {
+          "id": 2991,
+          "name": "Warehouse 2991",
+          "quantity": 596,
+          "localisation": {
+            "city": "Oujda",
+            "latitude": 0,
+            "longitude": 0
+          }
         }
       ],
       "editedBy": [
@@ -91,7 +101,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 5,
+          "quantity": 673,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,

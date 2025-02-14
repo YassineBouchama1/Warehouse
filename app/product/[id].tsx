@@ -77,7 +77,6 @@ export default function ProductDetailsScreen() {
             <AddStockModal
               visible={isModalVisible}
               onClose={() => setIsModalVisible(false)}
-              productId={id}
               onAddStock={handleAddStock}
             />
 

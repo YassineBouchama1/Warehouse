@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Modal, FlatList, StyleSheet } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { fetchWarehouses } from '~/api/warehouseApi'; // Assume this function exists
+import { fetchAllWarehouseman, fetchWarehouseman } from '~/api/warehousemanApi';
+import { Warehouseman } from '~/types';
 
 interface AddStockModalProps {
   visible: boolean;
   onClose: () => void;
-  productId: string;
+ 
   onAddStock: (warehouseId: number, quantity: number) => void;
 }
 
 export const AddStockModal: React.FC<AddStockModalProps> = ({
   visible,
   onClose,
-  productId,
+  
   onAddStock,
 }) => {
   const [selectedWarehouseId, setSelectedWarehouseId] = useState<number | null>(null);
@@ -24,9 +25,9 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
     data: warehouses,
     isLoading,
     error,
-  } = useQuery<any[], Error>({
+  } = useQuery<Warehouseman[], Error>({
     queryKey: ['warehouses'],
-    queryFn: fetchWarehouses,
+    queryFn: fetchAllWarehouseman,
   });
 
   const handleAddStock = () => {
@@ -37,7 +38,7 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
     onAddStock(selectedWarehouseId, parseInt(quantity, 10));
     onClose();
   };
-
+console.log(warehouses);
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
       <View style={styles.modalContainer}>
@@ -49,13 +50,13 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
 
           {warehouses && (
             <FlatList
-              data={warehouses}
+              data={warehouses || []}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <Button
-                  title={item.name}
-                  onPress={() => setSelectedWarehouseId(item.id)}
-                  color={selectedWarehouseId === item.id ? 'green' : 'gray'}
+                  title={item.city}
+                  onPress={() => setSelectedWarehouseId(item.warehouseId)}
+                  color={selectedWarehouseId === item.warehouseId ? 'green' : 'gray'}
                 />
               )}
             />
