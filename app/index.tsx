@@ -1,14 +1,20 @@
 import { Redirect } from 'expo-router';
-import { useAuthStore } from '~/store/useAuthStore';
+import { useEffect } from 'react';
+import { useAuth } from '~/provider/AuthProvider';
 
 export default function Index() {
-  const { user, isLoading } = useAuthStore();
-
+  const { isAuthenticated, isLoading } = useAuth();
+  // show nothing while checking authentication status
   if (isLoading) {
-    return null; 
+    return null;
   }
 
-  console.log(user);
 
-  return <Redirect href={user ? '/(tabs)/products' : '/(auth)/login'} />;
+
+    return isAuthenticated ? (
+      <Redirect href="/(tabs)/products" />
+    ) : (
+      <Redirect href="/(auth)/login" />
+    );
+  
 }

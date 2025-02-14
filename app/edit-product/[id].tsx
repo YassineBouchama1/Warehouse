@@ -2,6 +2,7 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { EditProductForm } from '~/components/EditProductForm';
 import { useEditProduct } from '~/hooks/useEditProduct';
+import GradientWrapper from '~/components/GradientWrapper';
 
 export default function EditProductScreen() {
   const { id } = useLocalSearchParams();
@@ -22,6 +23,8 @@ export default function EditProductScreen() {
   }
 
   return (
+    <GradientWrapper>
+
     <ScrollView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Edit Product</Text>
@@ -33,6 +36,7 @@ export default function EditProductScreen() {
         />
       </View>
     </ScrollView>
+    </GradientWrapper>
   );
 }
 

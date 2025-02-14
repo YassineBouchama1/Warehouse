@@ -2,26 +2,27 @@ import { View, Image, StyleSheet } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { Product } from '~/types';
+import { usePrintProduct } from '~/hooks/usePrintProduct';
 
 type ProductHeaderProps = {
-  name: string;
-  price: number;
-  image: string;
-  productId: number;
+    product:Product
+
 };
 
-export function ProductHeader({ name, price, image, productId }: ProductHeaderProps) {
+export function ProductHeader({ product }: ProductHeaderProps) {
   const router = useRouter();
+  const { printToFile } = usePrintProduct();
 
   return (
     <Animated.View style={styles.header}>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={{ uri: product.image }} style={styles.image} />
       <View style={styles.headerContent}>
         <Animated.Text entering={FadeInDown.delay(200)} style={styles.name}>
-          {name}
+          {product.name}
         </Animated.Text>
         <Animated.Text entering={FadeInDown.delay(300)} style={styles.price}>
-          ${price}
+          ${product.price}
         </Animated.Text>
       </View>
       <Animated.View style={styles.editButton}>
@@ -29,7 +30,13 @@ export function ProductHeader({ name, price, image, productId }: ProductHeaderPr
           name="pencil"
           size={24}
           color="#FFFFFF"
-          onPress={() => router.push(`/edit-product/${productId}`)}
+          onPress={() => router.push(`/edit-product/${product.id}`)}
+        />
+        <Ionicons
+          name="file-tray-full"
+          size={24}
+          color="#FFFFFF"
+          onPress={() => printToFile(product)}
         />
       </Animated.View>
     </Animated.View>
@@ -72,6 +79,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     right: 20,
+    flexDirection: 'row',
+    gap:20,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     borderRadius: 20,
     padding: 10,

@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, TextInput, StyleSheet, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import useDebounce from '~/hooks/useDebounce';
+import { useProductModalStore } from '~/store/useProductModalStore';
+import { useFilterModalStore } from '~/store/useFilterModalStore';
 
 interface SearchBarProps {
   searchQuery: string;
@@ -10,6 +12,7 @@ interface SearchBarProps {
 
 const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
   const [inputValue, setInputValue] = useState(searchQuery);
+  const openFilterModal = useFilterModalStore((state) => state.openFilterModal);
 
   useDebounce(
     () => {
@@ -47,7 +50,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }: SearchBarProps) => {
             <Ionicons name="close-circle" size={20} color="#666" />
           </Pressable>
         )}
-        <Pressable onPress={() => console.log('open filter')} hitSlop={10}>
+        <Pressable onPress={() => openFilterModal()} hitSlop={10}>
           <Ionicons name="filter" size={26} color="#666" />
         </Pressable>
       </View>

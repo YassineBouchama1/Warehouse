@@ -2,18 +2,18 @@
   "products": [
     {
       "id": "1",
-      "name": "Laptop HP Pavilion",
+      "name": "Laptop HP Pavilion6",
       "type": "Informatique",
       "barcode": "1234567890123",
       "price": 1200,
       "solde": 1100,
-      "supplier": "HPb",
-      "image": "https://mediazone.ma/uploads/images/products/16412/landing-page/assets/images/swiper-1.png",
+      "supplier": "HPbjh",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/c688c304-1c33-4508-ac5a-ae3d188b274d.jpeg",
       "stocks": [
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 999,
+          "quantity": 55,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -23,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 24,
+          "quantity": 6,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -43,8 +43,37 @@
         {
           "warehousemanId": "1444",
           "at": "2025-02-13T22:20:44.715Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:33:38.707Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:43:02.805Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:48:24.844Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:50:40.274Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:58:30.022Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:58:44.206Z"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T15:59:52.752Z"
         }
-      ]
+      ],
+      "imageUrl": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/7cd6e412-ac9f-4416-81eb-0891274ffdc2.jpeg"
     },
     {
       "id": "2",
@@ -53,12 +82,12 @@
       "barcode": "9876543210987",
       "price": 100,
       "supplier": "Logitech",
-      "image": "https://in-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/8/a/8aa01aa.png",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/cf35a768-3414-4b83-967f-f3cb071f5e4a.jpeg",
       "stocks": [
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 20,
+          "quantity": 6,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -80,6 +109,10 @@
         {
           "warehousemanId": 1444,
           "at": "2025-02-02"
+        },
+        {
+          "warehousemanId": "1333",
+          "at": "2025-02-14T17:21:05.920Z"
         }
       ]
     },
@@ -100,18 +133,18 @@
       ]
     },
     {
-      "id": "17db",
-      "name": "Hhhh",
-      "type": "Hhh",
-      "barcode": "6118000191032",
-      "price": 366,
-      "supplier": "Hhh",
-      "image": "file:///data/user/0/com.siskoweb.WarehouseManagement/cache/ImagePicker/9f92fb12-21cf-46d2-bdf1-92ef5e9740ed.jpeg",
+      "id": "d5da",
+      "name": "Hh",
+      "type": "Jj",
+      "barcode": "4058172310232",
+      "price": 66,
+      "supplier": "Hj",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
       "stocks": [
         {
           "id": 2991,
           "name": "2991",
-          "quantity": 300,
+          "quantity": 123,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 0,
@@ -122,7 +155,119 @@
       "editedBy": [
         {
           "warehousemanId": "1444",
-          "at": "2025-02-13T22:25:58.179Z"
+          "at": "2025-02-14T17:34:11.501Z"
+        }
+      ],
+      "solde": 0
+    },
+    {
+      "id": "4552",
+      "name": "Hh",
+      "type": "Jj",
+      "barcode": "4058172310232",
+      "price": 66,
+      "supplier": "Hj",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
+      "stocks": [
+        {
+          "id": 2991,
+          "name": "2991",
+          "quantity": 123,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T17:34:15.602Z"
+        }
+      ],
+      "solde": 0
+    },
+    {
+      "id": "c8f1",
+      "name": "Hh",
+      "type": "Jj",
+      "barcode": "4058172310232",
+      "price": 66,
+      "supplier": "Hj",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
+      "stocks": [
+        {
+          "id": 2991,
+          "name": "2991",
+          "quantity": 123,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T17:34:14.678Z"
+        }
+      ],
+      "solde": 0
+    },
+    {
+      "id": "cd5b",
+      "name": "Hh",
+      "type": "Jj",
+      "barcode": "4058172310232",
+      "price": 66,
+      "supplier": "Hj",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
+      "stocks": [
+        {
+          "id": 2991,
+          "name": "2991",
+          "quantity": 123,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T17:34:16.740Z"
+        }
+      ],
+      "solde": 0
+    },
+    {
+      "id": "d79c",
+      "name": "Hh",
+      "type": "Jj",
+      "barcode": "4058172310232",
+      "price": 66,
+      "supplier": "Hj",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/efc4e551-094f-4646-a09b-d2db7c5966ad.jpeg",
+      "stocks": [
+        {
+          "id": 2991,
+          "name": "2991",
+          "quantity": 123,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T17:34:16.362Z"
         }
       ],
       "solde": 0
@@ -134,7 +279,7 @@
       "name": "Amine Boutaleb",
       "dob": "1988-05-02",
       "city": "Oujda",
-      "secretKey": "AH90907J",
+      "secretKey": "12",
       "warehouseId": 1999
     },
     {

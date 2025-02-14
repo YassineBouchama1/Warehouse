@@ -9,6 +9,7 @@ import { ProductInfo } from '~/components/pruductDetails/ProductInfo';
 import { EditorInfo } from '~/components/pruductDetails/EditorInfo';
 import { StockList } from '~/components/pruductDetails/StockList';
 import StockUpdateModal from '~/components/StockUpdateModal';
+import GradientWrapper from '~/components/GradientWrapper';
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams();
@@ -35,37 +36,38 @@ export default function ProductDetailsScreen() {
   return (
     <>
       <Stack.Screen options={{ title: product.name, headerShown: true }} />
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <ProductHeader
-          name={product.name}
-          price={product.price}
-          image={product.image}
-          productId={product.id}
-        />
-        <View style={styles.content}>
-          <ProductInfo type={product.type} supplier={product.supplier} barcode={product.barcode} />
-          {lastEditor && (
-            <EditorInfo
-              editor={lastEditor}
-              editDate={product.editedBy[product.editedBy.length - 1].at}
+      <GradientWrapper>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+          <ProductHeader product={product} />
+          <View style={styles.content}>
+            <ProductInfo
+              type={product.type}
+              supplier={product.supplier}
+              barcode={product.barcode}
             />
-          )}
-          <StockList
-            stocks={product.stocks}
-            onUpdateStock={(stock) => {
-              setSelectedWarehouse(stock);
-              setShowUpdateModal(true);
-            }}
-          />
-        </View>
-      </ScrollView>
-      <StockUpdateModal
-        visible={showUpdateModal}
-        onClose={() => setShowUpdateModal(false)}
-        onUpdate={handleStockUpdate}
-        onRemove={handleStockRemove}
-        currentQuantity={selectedWarehouse?.quantity || 0}
-      />
+            {lastEditor && (
+              <EditorInfo
+                editor={lastEditor}
+                editDate={product.editedBy[product.editedBy.length - 1].at}
+              />
+            )}
+            <StockList
+              stocks={product.stocks}
+              onUpdateStock={(stock) => {
+                setSelectedWarehouse(stock);
+                setShowUpdateModal(true);
+              }}
+            />
+          </View>
+        </ScrollView>
+        <StockUpdateModal
+          visible={showUpdateModal}
+          onClose={() => setShowUpdateModal(false)}
+          onUpdate={handleStockUpdate}
+          onRemove={handleStockRemove}
+          currentQuantity={selectedWarehouse?.quantity || 0}
+        />
+      </GradientWrapper>
     </>
   );
 }
@@ -73,7 +75,7 @@ export default function ProductDetailsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: 'transparent',
   },
   content: {
     padding: 20,

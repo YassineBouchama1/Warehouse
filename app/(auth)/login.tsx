@@ -1,12 +1,12 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 
 import { fetchWarehouseman } from '~/api/warehousemanApi';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors, Fonts } from '~/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
-import { useAuthStore } from '~/store/useAuthStore';
+import { useAuth } from '~/provider/AuthProvider';
 
 const logo = require('~/assets/logo.png');
 
@@ -17,16 +17,18 @@ export default function LoginScreen() {
 
   const router = useRouter();
 
-  const user = useAuthStore((state) => state.user);
-  const login = useAuthStore((state) => state.login);
+const { isAuthenticated,login } = useAuth();
 
   const memoizedStyles = useMemo(() => styles, []);
 
-  // useEffect(() => {
-  //   if (user) {
-  //   router.replace('/(tabs)/products');
-  //   }
-  // }, [user]); 
+  useFocusEffect(
+    useCallback(() => {
+      if (isAuthenticated) {
+        router.replace('/(tabs)/products');
+      }
+    }, [isAuthenticated])
+  );
+
   console.log('iam in login')
   const handleLogin = async () => {
     setIsLoading(true);
@@ -35,6 +37,7 @@ export default function LoginScreen() {
       if (warehouseman) {
        await login(warehouseman);
         router.push('/(tabs)/products');
+      setIsLoading(false);
       } else {
         setError('Invalid secret code');
       }

@@ -28,7 +28,6 @@ import { updateProductStock, removeProductQuantity } from '~/api/productApi';
 import { useProductDetails } from '~/hooks/useProductDetails';
 import { Stock } from '~/types';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const ProductDetailsModal: React.FC = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);

@@ -1,16 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchProductById, updateProductDetails } from '~/api/productApi';
-import { useAuthStore } from '~/store/useAuthStore';
 import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import type { Product } from '~/types';
 import { useState } from 'react';
+import { useAuth } from '~/provider/AuthProvider';
 
 export const useEditProduct = (productId: string) => {
   const queryClient = useQueryClient();
-  const user = useAuthStore((state) => state.user);
   const router = useRouter();
-  const { logout } = useAuthStore();
+const { user  ,logout} = useAuth();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const {

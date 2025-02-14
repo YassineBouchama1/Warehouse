@@ -36,7 +36,6 @@ export const AddProductForm: React.FC<AddProductFormProps> = ({
       await handleSubmit();
     } catch (error) {
       console.error(error);
-      // Here you might want to show an error message to the user
     }
   };
 

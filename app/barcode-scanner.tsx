@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router';
 import { fetchProducts } from '../api/productApi';
 import { AddProductForm } from '../components/products/AddProductForm';
 import type { Product } from '../types';
-import { useAuthStore } from '~/store/useAuthStore';
+import { useAuth } from '~/provider/AuthProvider';
 
 interface ScanResult {
   data: string;
@@ -21,8 +21,7 @@ const  BarcodeScannerScreen: React.FC = () => {
   const [existingProduct, setExistingProduct] = useState<Product | null>(null);
 
   const router = useRouter();
-  const user = useAuthStore((state) => state.user);
-
+const {user} = useAuth()
   if (!permission) {
     return <View style={styles.container} />;
   }

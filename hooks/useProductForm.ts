@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { addProduct, addStockToProduct } from '../api/productApi';
 import * as ImagePicker from 'expo-image-picker';
 import type { Product, AddProductFormData, NewProduct } from '../types';
-import { useAuthStore } from '~/store/useAuthStore';
+import { useAuth } from '~/provider/AuthProvider';
 
 interface UseProductFormProps {
   initialBarcode: string;
@@ -25,8 +25,7 @@ export const useProductForm = ({
     image: null,
   });
 
-  const user = useAuthStore((state) => state.user);
-
+const { user } = useAuth();
   useEffect(() => {
     if (existingProduct) {
       setFormData({
@@ -57,13 +56,18 @@ export const useProductForm = ({
     }
   };
 
-  const handleSubmit = async () => {
-    if (!user) {
-      throw new Error('User not logged in');
-    }
+const handleSubmit = async () => {
+  if (!user) {
+    throw new Error('User not logged in');
+  }
 
-    try {
-      if (existingProduct) {
+  try {
+    if (existingProduct) {
+      // Check if product already has stock in the user's warehouse
+      const existingStock = existingProduct.stocks.find((stock) => stock.id === user.warehouseId);
+
+      if (existingStock) {
+        // Update existing stock in the warehouse
         const updatedProduct = await addStockToProduct(
           existingProduct.id,
           user.warehouseId,
@@ -72,40 +76,52 @@ export const useProductForm = ({
         );
         onSuccess(updatedProduct.id);
       } else {
-        const newProduct: NewProduct = {
-          name: formData.name,
-          type: formData.type,
-          barcode: initialBarcode,
-          price: Number.parseFloat(formData.price),
-          supplier: formData.supplier,
-          image: formData.image || '',
-          stocks: [
-            {
-              id: user.warehouseId,
-              name: user.warehouseId.toString(),
-              quantity: Number.parseInt(formData.quantity),
-              localisation: {
-                city: user.city,
-                latitude: 0,
-                longitude: 0,
-              },
-            },
-          ],
-          editedBy: [
-            {
-              warehousemanId: user.id,
-              at: new Date().toISOString(),
-            },
-          ],
-          solde: 0,
-        };
-        const addedProduct = await addProduct(newProduct);
-        onSuccess(addedProduct.id);
+        // Create new stock entry in the user's warehouse
+        const updatedProduct = await addStockToProduct(
+          existingProduct.id,
+          user.warehouseId,
+          Number.parseInt(formData.quantity),
+          user.city
+        );
+        onSuccess(updatedProduct.id);
       }
-    } catch (error) {
-      throw new Error(`Error adding product: ${error}`);
+    } else {
+      // Create a new product
+      const newProduct: NewProduct = {
+        name: formData.name,
+        type: formData.type,
+        barcode: initialBarcode,
+        price: Number.parseFloat(formData.price),
+        supplier: formData.supplier,
+        image: formData.image || '',
+        stocks: [
+          {
+            id: user.warehouseId,
+            name: user.warehouseId.toString(),
+            quantity: Number.parseInt(formData.quantity),
+            localisation: {
+              city: user.city,
+              latitude: 0,
+              longitude: 0,
+            },
+          },
+        ],
+        editedBy: [
+          {
+            warehousemanId: user.id,
+            at: new Date().toISOString(),
+          },
+        ],
+        solde: 0,
+      };
+      const addedProduct = await addProduct(newProduct);
+      onSuccess(addedProduct.id);
     }
-  };
+  } catch (error) {
+    throw new Error(`Error adding product: ${error}`);
+  }
+};
+
 
   return {
     formData,

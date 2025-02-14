@@ -54,7 +54,14 @@ export interface ProductSortConfig {
 }
 
 export interface NewProduct extends Omit<Product, 'id'> {}
-
+export interface UpdateProductRequest {
+  name?: string;
+  type?: string;
+  price?: string;
+  supplier?: string;
+  quantity?: string;
+  image?: string | null;
+}
 export interface AddProductFormData {
   name: string;
   type: string;
