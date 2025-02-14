@@ -28,7 +28,7 @@ const TabsLayout: React.FC = () => {
 
   useEffect(() => {
     const route = pathname.split('/')[1] || 'index';
-    activeTab.value = route === 'barcode-scanner' ? 1 : route === 'products' ? 2 : 0;
+    activeTab.value = route === 'products' ? 1 : route === 'profile' ? 2 : 0;
   }, [pathname]);
 
   // Create animation styles for icons
@@ -58,14 +58,14 @@ const TabsLayout: React.FC = () => {
       tabPress: (e: any) => {
         const routeName = e.target.split('-')[0];
         if (routeName === 'index') activeTab.value = 0;
-        if (routeName === 'barcode-scanner') activeTab.value = 1;
-        if (routeName === 'products') activeTab.value = 2;
+        if (routeName === 'products') activeTab.value = 1;
+        if (routeName === 'profile') activeTab.value = 2;
       },
       focus: (e: any) => {
         const routeName = e.target.split('-')[0];
         if (routeName === 'index') activeTab.value = 0;
-        if (routeName === 'barcode-scanner') activeTab.value = 1;
-        if (routeName === 'products') activeTab.value = 2;
+        if (routeName === 'products') activeTab.value = 1;
+        if (routeName === 'profile') activeTab.value = 2;
       },
     }),
     []
@@ -76,9 +76,9 @@ const TabsLayout: React.FC = () => {
     switch (route) {
       case 'index':
         return 'Home';
+      case 'profile':
+        return 'profile';
       case 'products':
-        return 'Products';
-      case 'barcode-scanner':
         return 'Barcode Scanner';
       default:
         return '';
@@ -122,7 +122,7 @@ const TabsLayout: React.FC = () => {
         }}
       />
       <Tabs.Screen
-        name="barcode-scanner"
+        name="products"
         options={{
           title: '',
           tabBarIcon: ({ color }: TabIconProps) => (
@@ -138,8 +138,8 @@ const TabsLayout: React.FC = () => {
                 },
                 animateTasksContainer,
               ]}>
-              <AnimatedMaterialIcons
-                name="qr-code-scanner"
+              <AnimatedFeather
+                name="box"
                 size={scale(30)}
                 color={'#fff'}
                 style={animatedIconStyles[1]}
@@ -149,12 +149,12 @@ const TabsLayout: React.FC = () => {
         }}
       />
       <Tabs.Screen
-        name="products"
+        name="profile"
         options={{
-          title: 'Products',
+          title: 'profile',
           tabBarIcon: ({ color }: TabIconProps) => (
             <AnimatedFeather
-              name="box"
+              name="user"
               size={scale(20)}
               color={color}
               style={animatedIconStyles[2]}
