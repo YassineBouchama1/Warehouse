@@ -71,9 +71,9 @@ const onAppStateChange = useCallback((status: AppStateStatus) => {
 
 
   // debugging
-  useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  }, []);
+  // useEffect(() => {
+  //   LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  // }, []);
 
   if (!fontsLoaded) {
     return null;
