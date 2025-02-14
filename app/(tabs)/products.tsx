@@ -8,16 +8,17 @@ import { moderateScale } from 'react-native-size-matters';
 import ProductCardSkeleton from '~/components/skeletons/ProductCardSkeleton';
 import SearchBar from '~/components/products/SearchBar';
 import { useProductModalStore } from '~/store/useProductModalStore';
-import ProductDetailsModal from '~/components/pruductDetails/ProductDetailsModal';
+import FilterModal from '~/components/products/FilterModal';
 
 const ProductsScreen: React.FC = () => {
   const router = useRouter();
   const { products, isLoading, isSearching, searchQuery, handleSearch } = useProducts();
-  const openModal = useProductModalStore((state) => state.openModal);
 
   // Handle product press navigation
   const handleProductPress = (productId: number) => {
-   openModal(productId);
+    router.push(`/product/${productId.toString()}`);
+//    openModal(productId);
+
   };
 
   // Render content based on loading, searching, or data availability
@@ -27,14 +28,14 @@ const ProductsScreen: React.FC = () => {
       return <ProductCardSkeleton />;
     }
 
-    if (products.length === 0) {
-      // Display no products message if the list is empty
-      return (
-        <View style={styles.loadingContainer}>
-          <Text>No Products found</Text>
-        </View>
-      );
-    }
+    // if (products.length === 0 && !isSearching && !isLoading) {
+    //   // Display no products message if the list is empty
+    //   return (
+    //     <View style={styles.loadingContainer}>
+    //       <Text>No Products found</Text>
+    //     </View>
+    //   );
+    // }
 
 
     // Render the list of products
@@ -66,7 +67,7 @@ const ProductsScreen: React.FC = () => {
         />
         {/* Render content (skeleton, no products, or product list) */}
         {renderContent()}
-        <ProductDetailsModal />
+        <FilterModal />
       </SafeAreaView>
     </GradientWrapper>
   );

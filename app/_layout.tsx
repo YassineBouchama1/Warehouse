@@ -15,6 +15,7 @@ import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-
 import useAppState from '~/hooks/query/useAppState';
 // import NetInfo from '@react-native-community/netinfo';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { PaperProvider } from 'react-native-paper';
 
 
 export const unstable_settings = {
@@ -86,10 +87,13 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
             <QueryClientProvider client={queryClient}>
       <RootSiblingParent>
+          <PaperProvider>
+
                    <BottomSheetModalProvider>
 
         <RootLayoutNav />
         </BottomSheetModalProvider>
+          </PaperProvider>
       </RootSiblingParent>
 </QueryClientProvider>
     </GestureHandlerRootView>
