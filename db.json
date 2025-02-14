@@ -8,7 +8,7 @@
       "price": 1200,
       "solde": 1100,
       "supplier": "HPbjh",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/c688c304-1c33-4508-ac5a-ae3d188b274d.jpeg",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/73247f71-60ed-4340-bf72-06d98a07ed4f.jpeg",
       "stocks": [
         {
           "id": 1999,
@@ -71,6 +71,10 @@
         {
           "warehousemanId": "1444",
           "at": "2025-02-14T15:59:52.752Z"
+        },
+        {
+          "warehousemanId": "1333",
+          "at": "2025-02-14T20:43:06.315Z"
         }
       ],
       "imageUrl": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/7cd6e412-ac9f-4416-81eb-0891274ffdc2.jpeg"
@@ -144,7 +148,7 @@
         {
           "id": 2991,
           "name": "2991",
-          "quantity": 96,
+          "quantity": 33333,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 0,
@@ -166,6 +170,44 @@
         {
           "warehousemanId": "1444",
           "at": "2025-02-14T19:03:58.096Z"
+        }
+      ],
+      "solde": 0
+    },
+    {
+      "id": "a53a",
+      "name": "Uhdh",
+      "type": "Hbdh",
+      "barcode": "6118000191032",
+      "price": 38,
+      "supplier": "Yhdhd",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/be8bb80f-fe12-4070-9a73-7c60fc0e61ea.jpeg",
+      "stocks": [
+        {
+          "id": 2991,
+          "name": "2991",
+          "quantity": 69565,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        },
+        {
+          "id": 1999,
+          "name": "Warehouse 1999",
+          "quantity": 32,
+          "localisation": {
+            "city": "Oujda",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-14T20:17:34.611Z"
         }
       ],
       "solde": 0

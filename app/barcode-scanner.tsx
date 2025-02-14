@@ -72,7 +72,6 @@ const {user} = useAuth()
         initialBarcode={scannedBarcode}
         existingProduct={existingProduct}
         onCancel={handleCancelAddProduct}
-        onSuccess={(productId) => router.replace(`/product/${productId}`)}
       />
     );
   }

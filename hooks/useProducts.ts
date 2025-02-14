@@ -101,7 +101,7 @@ export const useProducts = () => {
   // Trigger filtering and sorting whenever filters change
   React.useEffect(() => {
     applyFiltersAndSort();
-  }, [applyFiltersAndSort]);
+  }, []);
 
   return {
     products: filteredProducts,
