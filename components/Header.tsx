@@ -1,10 +1,13 @@
-import { Ionicons } from '@expo/vector-icons';
 import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet, Image, Pressable, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { Colors, Fonts, Gradients } from '~/constants/theme';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { router } from 'expo-router';
 
+const AnimatedMaterialIcons = Animated.createAnimatedComponent(MaterialIcons);
 
 
 type HeaderProps = {
@@ -17,16 +20,20 @@ const Header: React.FC<HeaderProps> = ({ title = '' }) => {
 
 
 
+  const handlePress = useCallback(() => {
+    router.push('/barcode-scanner')
+  },[])
   return (
     <View style={styles.container}>
-      <Pressable
-      
-        style={styles.iconContainer}>
+      <Pressable style={styles.iconContainer}>
         <Image source={require('~/assets/logo.png')} style={styles.headerIcon} />
       </Pressable>
 
       <Text style={styles.title}>{title}</Text>
-      
+
+      <TouchableOpacity onPress={handlePress} style={styles.notificationContainer}>
+        <AnimatedMaterialIcons name="qr-code-scanner" size={scale(24)} color={Colors.secondary} />
+      </TouchableOpacity>
     </View>
   );
 };

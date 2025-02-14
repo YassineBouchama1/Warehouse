@@ -7,14 +7,17 @@ import GradientWrapper from '~/components/GradientWrapper';
 import { moderateScale } from 'react-native-size-matters';
 import ProductCardSkeleton from '~/components/skeletons/ProductCardSkeleton';
 import SearchBar from '~/components/products/SearchBar';
+import { useProductModalStore } from '~/store/useProductModalStore';
+import ProductDetailsModal from '~/components/pruductDetails/ProductDetailsModal';
 
 const ProductsScreen: React.FC = () => {
   const router = useRouter();
   const { products, isLoading, isSearching, searchQuery, handleSearch } = useProducts();
+  const openModal = useProductModalStore((state) => state.openModal);
 
   // Handle product press navigation
   const handleProductPress = (productId: number) => {
-    router.push(`/product/${productId}`);
+   openModal(productId);
   };
 
   // Render content based on loading, searching, or data availability
@@ -32,6 +35,7 @@ const ProductsScreen: React.FC = () => {
         </View>
       );
     }
+
 
     // Render the list of products
     return (
@@ -62,6 +66,7 @@ const ProductsScreen: React.FC = () => {
         />
         {/* Render content (skeleton, no products, or product list) */}
         {renderContent()}
+        <ProductDetailsModal />
       </SafeAreaView>
     </GradientWrapper>
   );
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   productList: {
-    paddingBottom: 20,
+    // paddingBottom: 20,
   },
 });
 

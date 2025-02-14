@@ -11,9 +11,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import GradientWrapper from '~/components/GradientWrapper';
 import { useAuthStore, User } from '~/store/useAuthStore';
 import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import useOnlineManager from '~/hooks/query/UseOnlineManager';
+// import useOnlineManager from '~/hooks/query/UseOnlineManager';
 import useAppState from '~/hooks/query/useAppState';
 // import NetInfo from '@react-native-community/netinfo';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 
 export const unstable_settings = {
@@ -85,7 +86,10 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
             <QueryClientProvider client={queryClient}>
       <RootSiblingParent>
+                   <BottomSheetModalProvider>
+
         <RootLayoutNav />
+        </BottomSheetModalProvider>
       </RootSiblingParent>
 </QueryClientProvider>
     </GestureHandlerRootView>

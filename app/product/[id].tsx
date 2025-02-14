@@ -8,7 +8,7 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { fetchProductById, updateProductStock, removeProductQuantity } from '../../api/productApi';
 import { fetchWarehouseman } from '../../api/warehousemanApi';
 
@@ -135,6 +135,8 @@ export default function ProductDetailsScreen() {
   }
 
   return (
+    <>
+    <Stack.Screen options={{ title: product.name,headerShown: true }} />
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Animated.View style={[styles.header, headerAnimatedStyle]}>
         <Image source={{ uri: product.image }} style={styles.image} />
@@ -210,6 +212,7 @@ export default function ProductDetailsScreen() {
         currentQuantity={selectedWarehouse?.quantity || 0}
       />
     </ScrollView>
+        </>
   );
 }
 
