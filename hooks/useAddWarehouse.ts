@@ -4,6 +4,7 @@ import { fetchWarehouses } from '~/api/warehouseApi';
 import { useRouter } from 'expo-router';
 import { useAuth } from '~/provider/AuthProvider';
 import { isTokenInvalidOrUnauthorized } from '~/utils';
+import Toast from 'react-native-toast-message';
 
 interface AddWarehouseInput {
   name: string;
@@ -35,7 +36,11 @@ export const useAddWarehouse = (productId: string) => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       queryClient.invalidateQueries({ queryKey: ['product', productId] });
       queryClient.invalidateQueries({ queryKey: ['warehouses'] });
-      router.push(`/product/${updatedProduct.id}`);
+       Toast.show({
+                  type: 'success',
+                  text1: 'new WareHouse Added',
+                });
+      // router.push(`/product/${updatedProduct.id}`);
     },
     onError: async (error) => {
       if (isTokenInvalidOrUnauthorized(error.message)) {

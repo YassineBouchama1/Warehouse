@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import type { Product } from '~/types';
 import { useState } from 'react';
 import { useAuth } from '~/provider/AuthProvider';
+import Toast from 'react-native-toast-message';
 
 export const useEditProduct = (productId: string) => {
   const queryClient = useQueryClient();
@@ -45,6 +46,11 @@ const { user  ,logout} = useAuth();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products', 'product', productId] });
+     Toast.show({
+       type: 'success',
+       text1: 'Product Updated',
+      
+     });
       router.push('/(tabs)/products');
     },
     onError: async (error) => {
