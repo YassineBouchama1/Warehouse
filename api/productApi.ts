@@ -4,9 +4,67 @@ import { fetchWarehouses } from './warehouseApi';
 
 const API_URL = `${process.env.EXPO_PUBLIC_API}:3000`;
 
-export const fetchProducts = async (): Promise<Product[]> => {
+// export const fetchProducts = async (): Promise<Product[]> => {
+//   const response = await axios.get<Product[]>(`${API_URL}/products`);
+//   return response.data;
+// };
+
+
+export const fetchProducts = async (
+  searchQuery?: string,
+  sortBy?: string,
+  orderBy?: string,
+  city?: string,
+  inStockOnly?: boolean
+): Promise<Product[]> => {
+
+  // fecth all products from the server
   const response = await axios.get<Product[]>(`${API_URL}/products`);
-  return response.data;
+  let products = response.data;
+
+  // here if search provid  search filter
+  if (searchQuery) {
+    products = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.supplier?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  // apply city filter
+  if (city) {
+    products = products.filter((product) =>
+      product.stocks.some((stock) => stock.localisation.city === city)
+    );
+  }
+
+  // apply in-stock filter
+  if (inStockOnly) {
+    products = products.filter((product) => product.stocks.some((stock) => stock.quantity > 0));
+  }
+
+  // apply sorting
+  if (sortBy) {
+    products.sort((a, b) => {
+      if (sortBy === 'name') {
+        return orderBy === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      } else if (sortBy === 'quantity') {
+        const totalQuantityA = a.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
+        const totalQuantityB = b.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
+        return orderBy === 'asc'
+          ? totalQuantityA - totalQuantityB
+          : totalQuantityB - totalQuantityA;
+      } else if (sortBy === 'stock') {
+        const inStockA = a.stocks.some((stock) => stock.quantity > 0) ? 1 : 0;
+        const inStockB = b.stocks.some((stock) => stock.quantity > 0) ? 1 : 0;
+        return orderBy === 'asc' ? inStockA - inStockB : inStockB - inStockA;
+      }
+      return 0;
+    });
+  }
+
+  return products;
 };
 
 export const fetchProductById = async (id: number | string): Promise<Product> => {
@@ -75,7 +133,33 @@ export const updateProductDetails = async (
   return response.data;
 };
 
+export const addStockToProduct = async (
+  productId: number | string,
+  warehouseId: number,
+  quantity: number,
+  city: string
+): Promise<Product> => {
+  const product = await fetchProductById(productId);
+  const existingStockIndex = product.stocks.findIndex((stock) => stock.id === warehouseId);
 
+  if (existingStockIndex !== -1) {
+    product.stocks[existingStockIndex].quantity += quantity;
+  } else {
+    product.stocks.push({
+      id: warehouseId,
+      name: `Warehouse ${warehouseId}`,
+      quantity: quantity,
+      localisation: {
+        city: city,
+        latitude: 0,
+        longitude: 0,
+      },
+    });
+  }
+
+  const response = await axios.put<Product>(`${API_URL}/products/${productId}`, product);
+  return response.data;
+};
 
 
 

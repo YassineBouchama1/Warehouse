@@ -6,19 +6,18 @@ import type { Product } from '../../types';
 interface ProductCardProps {
   product: Product;
   onPress: () => void;
-  onEdit?: () => void;
-  onDelete?: () => void;
-  onViewDetails?: () => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  onPress,
-  onEdit,
-  onDelete,
-  onViewDetails,
-}) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onPress }) => {
   const totalQuantity = product.stocks.reduce((sum, stock) => sum + stock.quantity, 0);
+
+  const getStockStatus = (quantity: number) => {
+    if (quantity === 0) return 'outOfStock';
+    if (quantity < 10) return 'lowStock';
+    return 'inStock';
+  };
+
+  const stockStatus = getStockStatus(totalQuantity);
 
   return (
     <View style={styles.card}>
@@ -33,13 +32,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </View>
           )}
           <View style={styles.productInfo}>
-            <Text style={styles.productName}>{product.name}</Text>
+            <View style={styles.headerRow}>
+              <Text style={styles.productName}>{product.name}</Text>
+              <View style={[styles.stockIndicator, styles[`${stockStatus}Indicator`]]} />
+            </View>
             <Text style={styles.productType}>{product.type}</Text>
             <Text style={styles.productPrice}>${product.price.toFixed(2)}</Text>
-            <Text style={styles.productQuantity}>Quantity: {totalQuantity}</Text>
+            <View style={styles.quantityContainer}>
+              <Text style={[styles.productQuantity, styles[`${stockStatus}Text`]]}>
+                {stockStatus === 'outOfStock'
+                  ? 'Out of Stock'
+                  : stockStatus === 'lowStock'
+                    ? `Low Stock: ${totalQuantity}`
+                    : `Quantity: ${totalQuantity}`}
+              </Text>
+            </View>
           </View>
         </View>
-    
       </TouchableOpacity>
     </View>
   );
@@ -84,11 +93,32 @@ const styles = StyleSheet.create({
   productInfo: {
     flex: 1,
   },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
   productName: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
     color: '#333',
+    flex: 1,
+    marginRight: 10,
+  },
+  stockIndicator: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+  },
+  outOfStockIndicator: {
+    backgroundColor: '#FF3B30',
+  },
+  lowStockIndicator: {
+    backgroundColor: '#FFCC00',
+  },
+  inStockIndicator: {
+    backgroundColor: '#4CAF50',
   },
   productType: {
     fontSize: 14,
@@ -101,8 +131,21 @@ const styles = StyleSheet.create({
     color: '#4CAF50',
     marginBottom: 3,
   },
+  quantityContainer: {
+    marginTop: 2,
+  },
   productQuantity: {
     fontSize: 14,
+  },
+  outOfStockText: {
+    color: '#FF3B30',
+    fontWeight: 'bold',
+  },
+  lowStockText: {
+    color: '#CC9900',
+    fontWeight: '500',
+  },
+  inStockText: {
     color: '#666',
   },
   cardActions: {

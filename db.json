@@ -29,26 +29,6 @@
             "latitude": 34.689404,
             "longitude": -1.912823
           }
-        },
-        {
-          "id": 2992,
-          "name": "Yaas",
-          "quantity": 9,
-          "localisation": {
-            "city": "Asfi",
-            "latitude": 0,
-            "longitude": 0
-          }
-        },
-        {
-          "id": 2993,
-          "name": "Gg",
-          "quantity": 6956,
-          "localisation": {
-            "city": "Hhh",
-            "latitude": 0,
-            "longitude": 0
-          }
         }
       ],
       "editedBy": [
@@ -70,7 +50,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 3339,
+          "quantity": 1,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -80,7 +60,7 @@
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 100,
+          "quantity": 0,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 0,
@@ -103,7 +83,18 @@
       "price": 11000,
       "supplier": "HP",
       "image": "https://technoplace.ma/11482-large_default/hp-omen-17-i7-7700hq-173-16gb-2tb-geforce-gtx-10.jpg",
-      "stocks": [],
+      "stocks": [
+        {
+          "id": 2994,
+          "name": "Hh",
+          "quantity": 66,
+          "localisation": {
+            "city": "Bh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
       "editedBy": [
         {
           "warehousemanId": 1444,
