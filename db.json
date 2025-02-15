@@ -45,7 +45,7 @@
       "barcode": "9876543210987",
       "price": 100,
       "supplier": "Logitech",
-      "image": "https://in-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/8/a/8aa01aa.png",
+      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/39aba968-10d4-4eda-a9a0-03d6f84be074.jpeg",
       "stocks": [
         {
           "id": 2991,
@@ -72,6 +72,10 @@
         {
           "warehousemanId": 1444,
           "at": "2025-02-02"
+        },
+        {
+          "warehousemanId": "1444",
+          "at": "2025-02-15T17:39:32.979Z"
         }
       ]
     },

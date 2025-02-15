@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Animated, { FadeInLeft } from 'react-native-reanimated';
 import { MotiView } from 'moti';
 import { Stock } from '~/types';
+import { Colors } from '~/constants/theme';
 
 type StockListProps = {
   stocks: Stock[];
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   updateButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: Colors.primary,
     padding: 12,
     borderRadius: 10,
     alignItems: 'center',

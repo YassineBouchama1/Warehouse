@@ -19,7 +19,6 @@ export default function ProductDetailsScreen() {
   const { product, lastEditor, isLoading, isError, error, refetch } = useProductDetails(
     id as string
   );
-  
   const {
     showUpdateModal,
     setShowUpdateModal,
@@ -73,7 +72,7 @@ export default function ProductDetailsScreen() {
             />
 
            
-            <Button title="Add Stock to Warehouse" onPress={() => setIsModalVisible(true)} />
+            <Button title="Add New Warehouse" onPress={() => setIsModalVisible(true)} />
           </View>
         </ScrollView>
         <StockUpdateModal
