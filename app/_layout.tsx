@@ -6,7 +6,6 @@ import { useFonts } from 'expo-font';
 import { SplashScreen } from 'expo-router';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { checkWarehouseman } from '~/utils/checkWarehouseman';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import GradientWrapper from '~/components/GradientWrapper';
 import { focusManager, QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -16,6 +15,8 @@ import useAppState from '~/hooks/query/useAppState';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { PaperProvider } from 'react-native-paper';
 import { AuthProvider, useAuth } from '~/provider/AuthProvider';
+import Toast from 'react-native-toast-message';
+import toastConfig from '~/utils/toastConfig';
 
 
 export const unstable_settings = {
@@ -36,6 +37,7 @@ function RootLayoutNav() {
     <SafeAreaProvider style={{ paddingTop: insets.top }}>
       <GradientWrapper>
         <Slot />
+        <Toast config={toastConfig}/>
         <StatusBar style="auto" />
       </GradientWrapper>
     </SafeAreaProvider>

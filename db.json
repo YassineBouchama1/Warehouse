@@ -50,7 +50,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 1,
+          "quantity": 6,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -63,6 +63,16 @@
           "quantity": 0,
           "localisation": {
             "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        },
+        {
+          "id": 2995,
+          "name": "Abdo",
+          "quantity": 566,
+          "localisation": {
+            "city": "Hhhh",
             "latitude": 0,
             "longitude": 0
           }

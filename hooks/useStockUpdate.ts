@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateProductStock, removeProductQuantity, removeStockFromProduct } from '../api/productApi';
 import type { Stock } from '../types';
+import Toast from 'react-native-toast-message';
 
 export function useStockUpdate(productId: string) {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -15,6 +16,11 @@ export function useStockUpdate(productId: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product'] });
       setShowUpdateModal(false);
+        Toast.show({
+             type: 'success',
+             text1: 'stock Updated',
+            
+           });
     },
   });
 
@@ -27,6 +33,10 @@ export function useStockUpdate(productId: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product'] });
       setShowUpdateModal(false);
+          Toast.show({
+            type: 'success',
+            text1: 'stock Removed',
+          });
     },
   });
 

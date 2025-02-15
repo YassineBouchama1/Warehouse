@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   content: {
-    // padding: 20,
+    padding: 20,
   },
 });
