@@ -38,7 +38,7 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
     onAddStock(selectedWarehouseId, parseInt(quantity, 10));
     onClose();
   };
-console.log(warehouses);
+
   return (
     <Modal visible={visible} animationType="slide" transparent={true}>
       <View style={styles.modalContainer}>
