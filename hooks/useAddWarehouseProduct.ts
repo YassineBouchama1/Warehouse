@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchProductById, addStockToProduct } from '~/api/productApi';
+import { fetchProductById, addWareHouseToProduct } from '~/api/productApi';
 import { useRouter } from 'expo-router';
 import type { Product } from '~/types';
 import { useAuth } from '~/provider/AuthProvider';
@@ -29,7 +29,7 @@ export const useAddWarehouseProduct = (productId: string) => {
         throw new Error('Product ID is required');
       }
       try {
-        return await addStockToProduct(productId, warehouseId, quantity, user.city);
+        return await addWareHouseToProduct(productId, warehouseId, quantity);
       } catch (error) {
         throw new Error((error as Error).message);
       }

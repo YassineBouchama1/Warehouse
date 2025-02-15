@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { Product } from '../types';
+import { fetchWarehouses } from './warehouseApi';
 
 const API_URL = `${process.env.EXPO_PUBLIC_API}:3000`;
 
@@ -74,24 +75,29 @@ export const updateProductDetails = async (
   return response.data;
 };
 
-export const addStockToProduct = async (
+
+
+
+
+export const addWareHouseToProduct = async (
   productId: number | string,
   warehouseId: number,
-  quantity: number,
-  city: string
+  quantity: number
 ): Promise<Product> => {
   const product = await fetchProductById(productId);
+  const Warehouses = await fetchWarehouses();
   const existingStockIndex = product.stocks.findIndex((stock) => stock.id === warehouseId);
+  const existingWarehouse = Warehouses.find((warhouse) => warhouse.id === warehouseId);
 
   if (existingStockIndex !== -1) {
     product.stocks[existingStockIndex].quantity += quantity;
   } else {
     product.stocks.push({
       id: warehouseId,
-      name: `Warehouse ${warehouseId}`,
+      name: existingWarehouse?.name || 'no city',
       quantity: quantity,
       localisation: {
-        city: city,
+        city: existingWarehouse?.localisation.city || 'no city',
         latitude: 0,
         longitude: 0,
       },
@@ -101,6 +107,8 @@ export const addStockToProduct = async (
   const response = await axios.put<Product>(`${API_URL}/products/${productId}`, product);
   return response.data;
 };
+
+
 
 export const removeStockFromProduct = async (
   productId: number | string,

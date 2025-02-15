@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Modal, FlatList, StyleSheet } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { fetchAllWarehouseman, fetchWarehouseman } from '~/api/warehousemanApi';
-import { Warehouseman } from '~/types';
+import { Warehouse, Warehouseman } from '~/types';
+import { fetchWarehouses } from '~/api/warehouseApi';
 
 interface AddStockModalProps {
   visible: boolean;
@@ -14,7 +15,7 @@ interface AddStockModalProps {
 export const AddStockModal: React.FC<AddStockModalProps> = ({
   visible,
   onClose,
-  
+
   onAddStock,
 }) => {
   const [selectedWarehouseId, setSelectedWarehouseId] = useState<number | null>(null);
@@ -25,9 +26,9 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
     data: warehouses,
     isLoading,
     error,
-  } = useQuery<Warehouseman[], Error>({
+  } = useQuery<Warehouse[], Error>({
     queryKey: ['warehouses'],
-    queryFn: fetchAllWarehouseman,
+    queryFn: fetchWarehouses,
   });
 
   const handleAddStock = () => {
@@ -54,9 +55,9 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <Button
-                  title={item.city}
-                  onPress={() => setSelectedWarehouseId(item.warehouseId)}
-                  color={selectedWarehouseId === item.warehouseId ? 'green' : 'gray'}
+                  title={item.name}
+                  onPress={() => setSelectedWarehouseId(item.id)}
+                  color={selectedWarehouseId === item.id ? 'green' : 'gray'}
                 />
               )}
             />

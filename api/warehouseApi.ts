@@ -1,23 +1,9 @@
 import axios from "axios"
-import type { Product } from "../types"
+import type { Product, Warehouse, WarehouseStockItem } from "../types"
 
 const API_URL = `${process.env.EXPO_PUBLIC_API}:3000`
 
-export interface Warehouse {
-  id: number
-  name: string
-  localisation: {
-    city: string
-    latitude: number
-    longitude: number
-  }
-}
 
-export interface WarehouseStockItem {
-  productId: number
-  name: string
-  quantity: number
-}
 
 export const fetchWarehouses = async (): Promise<Warehouse[]> => {
   const response = await axios.get<Product[]>(`${API_URL}/products`)

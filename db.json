@@ -2,96 +2,18 @@
   "products": [
     {
       "id": "1",
-      "name": "Laptop HP Pavilion6",
+      "name": "Laptop HP Pavilion",
       "type": "Informatique",
       "barcode": "1234567890123",
       "price": 1200,
       "solde": 1100,
-      "supplier": "HPbjh",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/73247f71-60ed-4340-bf72-06d98a07ed4f.jpeg",
-      "stocks": [
-        {
-          "id": 1999,
-          "name": "Warehouse 1999",
-          "quantity": 22,
-          "localisation": {
-            "city": "Oujda",
-            "latitude": 0,
-            "longitude": 0
-          }
-        },
-        {
-          "id": 2991,
-          "name": "Warehouse 2991",
-          "quantity": 596,
-          "localisation": {
-            "city": "Oujda",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
-      "editedBy": [
-        {
-          "warehousemanId": 1333,
-          "at": "2025-02-02"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-13T22:19:06.733Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-13T22:20:44.715Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:33:38.707Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:43:02.805Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:48:24.844Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:50:40.274Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:58:30.022Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:58:44.206Z"
-        },
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T15:59:52.752Z"
-        },
-        {
-          "warehousemanId": "1333",
-          "at": "2025-02-14T20:43:06.315Z"
-        }
-      ],
-      "imageUrl": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/7cd6e412-ac9f-4416-81eb-0891274ffdc2.jpeg"
-    },
-    {
-      "id": "2",
-      "name": "Clavier Mécanique Logitech",
-      "type": "Accessoires",
-      "barcode": "9876543210987",
-      "price": 100,
-      "supplier": "Logitech",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/cf35a768-3414-4b83-967f-f3cb071f5e4a.jpeg",
+      "supplier": "HP",
+      "image": "https://mediazone.ma/uploads/images/products/16412/landing-page/assets/images/swiper-1.png",
       "stocks": [
         {
           "id": 1999,
           "name": "Gueliz B2",
-          "quantity": 6,
+          "quantity": 21,
           "localisation": {
             "city": "Marrakesh",
             "latitude": 31.628674,
@@ -101,7 +23,7 @@
         {
           "id": 2991,
           "name": "Lazari H2",
-          "quantity": 673,
+          "quantity": 24,
           "localisation": {
             "city": "Oujda",
             "latitude": 34.689404,
@@ -111,12 +33,45 @@
       ],
       "editedBy": [
         {
-          "warehousemanId": 1444,
+          "warehousemanId": 1333,
           "at": "2025-02-02"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Clavier Mécanique Logitech",
+      "type": "Accessoires",
+      "barcode": "9876543210987",
+      "price": 100,
+      "supplier": "Logitech",
+      "image": "https://in-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/8/a/8aa01aa.png",
+      "stocks": [
+        {
+          "id": 2991,
+          "name": "Lazari H2",
+          "quantity": 3339,
+          "localisation": {
+            "city": "Oujda",
+            "latitude": 34.689404,
+            "longitude": -1.912823
+          }
         },
         {
-          "warehousemanId": "1333",
-          "at": "2025-02-14T17:21:05.920Z"
+          "id": 1999,
+          "name": "Gueliz B2",
+          "quantity": 100,
+          "localisation": {
+            "city": "Marrakesh",
+            "latitude": 0,
+            "longitude": 0
+          }
+        }
+      ],
+      "editedBy": [
+        {
+          "warehousemanId": 1444,
+          "at": "2025-02-02"
         }
       ]
     },
@@ -135,61 +90,6 @@
           "at": "2025-02-02"
         }
       ]
-    },
-    {
-      "id": "32e8",
-      "name": "Uuh",
-      "type": "Hfdhd",
-      "barcode": "4066447104011",
-      "price": 6626,
-      "supplier": "Bb",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/f91be289-1fd9-42c8-9736-4532378db4f6.jpeg",
-      "stocks": [
-        {
-          "id": 2991,
-          "name": "2991",
-          "quantity": 33333,
-          "localisation": {
-            "city": "Marrakesh",
-            "latitude": 0,
-            "longitude": 0
-          }
-        },
-        {
-          "id": 1999,
-          "name": "Warehouse 1999",
-          "quantity": 3333,
-          "localisation": {
-            "city": "Oujda",
-            "latitude": 0,
-            "longitude": 0
-          }
-        }
-      ],
-      "editedBy": [
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T19:03:58.096Z"
-        }
-      ],
-      "solde": 0
-    },
-    {
-      "id": "a53a",
-      "name": "Uhdh",
-      "type": "Hbdh",
-      "barcode": "6118000191032",
-      "price": 38,
-      "supplier": "Yhdhd",
-      "image": "file:///data/user/0/com.siskoweb.warehouse/cache/ImagePicker/be8bb80f-fe12-4070-9a73-7c60fc0e61ea.jpeg",
-      "stocks": [],
-      "editedBy": [
-        {
-          "warehousemanId": "1444",
-          "at": "2025-02-14T20:17:34.611Z"
-        }
-      ],
-      "solde": 0
     }
   ],
   "warehousemans": [
@@ -198,7 +98,7 @@
       "name": "Amine Boutaleb",
       "dob": "1988-05-02",
       "city": "Oujda",
-      "secretKey": "12",
+      "secretKey": "AH90907J",
       "warehouseId": 1999
     },
     {
@@ -206,17 +106,15 @@
       "name": "Karim El Mansouri",
       "dob": "1990-09-15",
       "city": "Marrakesh",
-      "secretKey": "123",
+      "secretKey": "RK189987A",
       "warehouseId": 2991
     }
   ],
   "statistics": {
-    "totalProducts": 4,
+    "totalProducts": 3,
     "outOfStock": 1,
-    "totalStockValue": 136,
-    "mostAddedProducts": [
-      "Lastb"
-    ],
+    "totalStockValue": 70,
+    "mostAddedProducts": [],
     "mostRemovedProducts": []
   }
 }

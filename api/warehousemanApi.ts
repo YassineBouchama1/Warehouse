@@ -17,6 +17,9 @@ export const fetchWarehousemanById = async (id: number | string): Promise<Wareho
   return response.data[0] || null;
 };
 
+
+
+
 export const fetchAllWarehouseman = async (
  
 ): Promise<Warehouseman[]> => {

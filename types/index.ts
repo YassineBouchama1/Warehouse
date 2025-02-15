@@ -3,6 +3,21 @@ export interface Localisation {
   latitude: number;
   longitude: number;
 }
+export interface Warehouse {
+  id: number;
+  name: string;
+  localisation: {
+    city: string;
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface WarehouseStockItem {
+  productId: number;
+  name: string;
+  quantity: number;
+}
 
 export interface Stock {
   id: number;
