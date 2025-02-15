@@ -13,8 +13,6 @@ import GradientWrapper from '~/components/GradientWrapper';
 import { Button } from '~/components/Button';
 import { AddStockModal } from '~/components/pruductDetails/AddStockModal';
 import { useState } from 'react';
-import { useAddWarehouseProduct } from '~/hooks/useAddWarehouseProduct';
-import { Text } from 'react-native';
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams();
@@ -33,12 +31,6 @@ export default function ProductDetailsScreen() {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { addStockToWarehouse, isLoading: isLoadingAdd, error:errorWarhouse } = useAddWarehouseProduct(id);
-
-
-  const handleAddStock = (warehouseId: number, quantity: number) => {
-    addStockToWarehouse(warehouseId, quantity);
-  };
 
   if (isLoading) {
     return <LoadingView />;
@@ -77,13 +69,10 @@ export default function ProductDetailsScreen() {
             <AddStockModal
               visible={isModalVisible}
               onClose={() => setIsModalVisible(false)}
-              onAddStock={handleAddStock}
+              productId={id as string}
             />
 
-            {isLoadingAdd && <Text>Adding stock...</Text>}
-            {errorWarhouse && (
-              <Text style={{ color: 'red' }}>error: {errorWarhouse.message}</Text>
-            )}
+           
             <Button title="Add Stock to Warehouse" onPress={() => setIsModalVisible(true)} />
           </View>
         </ScrollView>

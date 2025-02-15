@@ -80,29 +80,25 @@ export const updateProductDetails = async (
 
 
 export const addWareHouseToProduct = async (
+  newWarehouseId:string | number,
   productId: number | string,
-  warehouseId: number,
+  name: string,
+  city: string,
   quantity: number
 ): Promise<Product> => {
   const product = await fetchProductById(productId);
-  const Warehouses = await fetchWarehouses();
-  const existingStockIndex = product.stocks.findIndex((stock) => stock.id === warehouseId);
-  const existingWarehouse = Warehouses.find((warhouse) => warhouse.id === warehouseId);
 
-  if (existingStockIndex !== -1) {
-    product.stocks[existingStockIndex].quantity += quantity;
-  } else {
     product.stocks.push({
-      id: warehouseId,
-      name: existingWarehouse?.name || 'no city',
+      id: newWarehouseId,
+      name: name || 'no city',
       quantity: quantity,
       localisation: {
-        city: existingWarehouse?.localisation.city || 'no city',
+        city: city,
         latitude: 0,
         longitude: 0,
       },
     });
-  }
+  
 
   const response = await axios.put<Product>(`${API_URL}/products/${productId}`, product);
   return response.data;

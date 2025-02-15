@@ -1,42 +1,52 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Modal, FlatList, StyleSheet } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { fetchAllWarehouseman, fetchWarehouseman } from '~/api/warehousemanApi';
-import { Warehouse, Warehouseman } from '~/types';
-import { fetchWarehouses } from '~/api/warehouseApi';
+import { View, Text, Modal, StyleSheet } from 'react-native';
+import { WarehouseForm } from './WarehouseForm';
+import { useAddWarehouse } from '~/hooks/useAddWarehouse';
 
 interface AddStockModalProps {
   visible: boolean;
   onClose: () => void;
- 
-  onAddStock: (warehouseId: number, quantity: number) => void;
+  productId: string;
 }
 
-export const AddStockModal: React.FC<AddStockModalProps> = ({
-  visible,
-  onClose,
+export const AddStockModal: React.FC<AddStockModalProps> = ({ visible, onClose, productId }) => {
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [error, setError] = useState('');
 
-  onAddStock,
-}) => {
-  const [selectedWarehouseId, setSelectedWarehouseId] = useState<number | null>(null);
-  const [quantity, setQuantity] = useState<string>('');
+  const { addWarehouse, isLoading, error: mutationError } = useAddWarehouse(productId);
 
-  // Fetch warehouses
-  const {
-    data: warehouses,
-    isLoading,
-    error,
-  } = useQuery<Warehouse[], Error>({
-    queryKey: ['warehouses'],
-    queryFn: fetchWarehouses,
-  });
-
-  const handleAddStock = () => {
-    if (!selectedWarehouseId || !quantity) {
-      alert('Please select a warehouse and enter a quantity');
+  const handleAddStock = async () => {
+    if (!name || !city || !quantity) {
+      setError('Please fill in all fields');
       return;
     }
-    onAddStock(selectedWarehouseId, parseInt(quantity, 10));
+
+    const quantityNum = parseInt(quantity, 10);
+    if (isNaN(quantityNum) || quantityNum <= 0) {
+      setError('Please enter a valid quantity');
+      return;
+    }
+
+    try {
+      setError('');
+      await addWarehouse({
+        name,
+        quantity: quantityNum,
+        city,
+      });
+      handleClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to add warehouse');
+    }
+  };
+
+  const handleClose = () => {
+    setName('');
+    setCity('');
+    setQuantity('');
+    setError('');
     onClose();
   };
 
@@ -44,43 +54,25 @@ export const AddStockModal: React.FC<AddStockModalProps> = ({
     <Modal visible={visible} animationType="slide" transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.title}>Add Stock to Warehouse</Text>
+          <Text style={styles.title}>Add New Warehouse</Text>
 
-          {isLoading && <Text>Loading warehouses...</Text>}
-          {error && <Text style={styles.error}>Error loading warehouses: {error.message}</Text>}
-
-          {warehouses && (
-            <FlatList
-              data={warehouses || []}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <Button
-                  title={item.name}
-                  onPress={() => setSelectedWarehouseId(item.id)}
-                  color={selectedWarehouseId === item.id ? 'green' : 'gray'}
-                />
-              )}
-            />
-          )}
-
-          <TextInput
-            style={styles.input}
-            placeholder="Enter quantity"
-            keyboardType="numeric"
-            value={quantity}
-            onChangeText={setQuantity}
+          <WarehouseForm
+            name={name}
+            city={city}
+            quantity={quantity}
+            error={error || (mutationError?.message ?? '')}
+            isLoading={isLoading}
+            onNameChange={setName}
+            onCityChange={setCity}
+            onQuantityChange={setQuantity}
+            onSubmit={handleAddStock}
+            onCancel={handleClose}
           />
-
-          <View style={styles.buttonContainer}>
-            <Button title="Cancel" onPress={onClose} />
-            <Button title="Add Stock" onPress={handleAddStock} />
-          </View>
         </View>
       </View>
     </Modal>
   );
 };
-
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
@@ -89,30 +81,65 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    width: '80%',
-    padding: 20,
+    width: '90%',
+    maxWidth: 400,
+    padding: 24,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 12,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#333',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 10,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 12,
+    marginVertical: 8,
+    fontSize: 16,
+    backgroundColor: '#f8f8f8',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 20,
+  },
+  button: {
+    flex: 1,
+    padding: 14,
+    borderRadius: 8,
+    marginHorizontal: 6,
+  },
+  cancelButton: {
+    backgroundColor: '#f1f1f1',
+  },
+  addButton: {
+    backgroundColor: '#007AFF',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  addButtonText: {
+    color: 'white',
   },
   error: {
-    color: 'red',
-    marginBottom: 10,
+    color: '#FF3B30',
+    marginBottom: 12,
+    textAlign: 'center',
+    fontSize: 14,
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
 });
